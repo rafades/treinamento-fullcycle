@@ -9,7 +9,7 @@ services:
       # nome do arquivo dockerfile
       dockerfile: Dockerfile
     # nome da imagem que será gerada
-    image: desiderio/fullcycle-node:1.0.0
+    image: rafades/fullcycle-node:1.0.0
     # ports:
     #   - "8000:8000"
     networks:
@@ -21,7 +21,7 @@ services:
       
       context: ./proxy
       dockerfile: Dockerfile
-    image: desiderio/fullcycle-nginx:1.0.0
+    image: rafades/fullcycle-proxy:1.0.0
     ports:
       - "8081:80"
     networks:
