@@ -27,6 +27,23 @@ services:
     networks:
       - nginx_network
 
+  myql:
+    image: mysql:latest
+    container_name: mysql
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # HABILITA LOGS BINARIOS
+      # MYSQL_LOG_BIN: ON
+      MYSQL_DATABASE: ngnix_usuario
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - nginx_network
+
 networks:
   nginx_network:
     driver: bridge
