@@ -31,6 +31,7 @@ services:
     #   - "8000:8000"
     networks:
       - nginx_network
+    restart: always
    
   proxy:
     container_name: proxy
@@ -39,7 +40,7 @@ services:
       dockerfile: Dockerfile
     image: rafades/fullcycle-proxy:1.0.0
     ports:
-      - "8081:80"
+      - "8080:80"
     networks:
       - nginx_network
 
