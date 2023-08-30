@@ -1,6 +1,23 @@
 version: '3.8'
 
 services:
+  myql:
+    image: mysql:latest
+    container_name: mysql
+    # cap_add:
+    #   - SYS_NICE
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # HABILITA LOGS BINARIOS
+      # MYSQL_LOG_BIN: ON
+      MYSQL_DATABASE: ngnix_usuario
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - nginx_network
+
   app:
     container_name: app
     build:
@@ -14,33 +31,15 @@ services:
     #   - "8000:8000"
     networks:
       - nginx_network
-
+   
   proxy:
     container_name: proxy
     build:
-      
       context: ./proxy
       dockerfile: Dockerfile
     image: rafades/fullcycle-proxy:1.0.0
     ports:
       - "8081:80"
-    networks:
-      - nginx_network
-
-  myql:
-    image: mysql:latest
-    container_name: mysql
-    cap_add:
-      - SYS_NICE
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      # HABILITA LOGS BINARIOS
-      # MYSQL_LOG_BIN: ON
-      MYSQL_DATABASE: ngnix_usuario
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d
     networks:
       - nginx_network
 

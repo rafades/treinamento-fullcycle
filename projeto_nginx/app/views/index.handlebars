@@ -1,0 +1,22 @@
+<ul>
+  {{#if dados}}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each dados}}
+          <tr>
+            <td>{{id}}</td>
+            <td>{{nome}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <span>Sem dados de pessoa cadastrados</span>
+  {{/if}}
+</ul>
