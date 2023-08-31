@@ -32,6 +32,8 @@ services:
     networks:
       - nginx_network
     restart: always
+    volumes:
+      - ./app:/app
    
   proxy:
     container_name: proxy
