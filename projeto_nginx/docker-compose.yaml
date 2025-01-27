@@ -1,7 +1,7 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  myql:
+  mysql:
     image: mysql:latest
     container_name: mysql
     # cap_add:
@@ -27,6 +27,8 @@ services:
       dockerfile: Dockerfile
     # nome da imagem que será gerada
     image: rafades/fullcycle-node:1.0.0
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 30s docker-entrypoint.sh
+    command: bash -c "npm install && node app.js"
     # ports:
     #   - "8000:8000"
     networks:
@@ -34,7 +36,8 @@ services:
     restart: always
     volumes:
       - ./app:/app
-   
+    depends_on:
+      - mysql
   proxy:
     container_name: proxy
     build:
@@ -45,6 +48,9 @@ services:
       - "8080:80"
     networks:
       - nginx_network
+    depends_on:
+      - mysql
+      - app
 
 networks:
   nginx_network:
